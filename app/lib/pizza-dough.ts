@@ -38,14 +38,14 @@ export function computePizzaDough({
     const saltWeight = flourWeight * (salt / 100)
     const yeastWeight = flourWeight * (yeast / 100)
 
-    const safeNumber = (n: number, decimals = 0) =>
+    const roundNumber = (n: number, decimals = 0) =>
         Number.isFinite(n) && n > 0 ? n.toFixed(decimals) : '0'
 
     return [
-        { label: 'Flour', value: safeNumber(flourWeight), unit: 'g' },
-        { label: 'Water', value: safeNumber(waterWeight), unit: 'ml' },
-        { label: 'Salt', value: safeNumber(saltWeight, 1), unit: 'g' },
-        { label: 'Yeast', value: safeNumber(yeastWeight, 2), unit: 'g' },
-        { label: 'Total dough', value: safeNumber(totalWeight), unit: 'g' },
+        { label: 'Flour', value: roundNumber(flourWeight), unit: 'g' },
+        { label: 'Water', value: roundNumber(waterWeight), unit: 'ml' },
+        { label: 'Salt', value: roundNumber(saltWeight, 1), unit: 'g' },
+        { label: 'Yeast', value: roundNumber(yeastWeight, 2), unit: 'g' },
+        { label: 'Total dough', value: roundNumber(totalWeight), unit: 'g' },
     ]
 }
