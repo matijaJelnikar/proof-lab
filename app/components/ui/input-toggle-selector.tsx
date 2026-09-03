@@ -15,7 +15,7 @@ export default function InputToggleSelector<T extends string>({ options, selecte
                 ))}
             </div>
             {selectedOption && (
-                <p className='text-sm text-muted'>Selected: {options[selectedOption]}</p>
+                <p className='flex self-end text-sm text-muted'> {options[selectedOption]}</p>
             )}
         </div>
     )
