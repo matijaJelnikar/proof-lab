@@ -20,7 +20,7 @@ const YEAST_PROFILES: Record<YeastType, YeastProfile> = {
     ADY: { strengthFactor: 1.25, minPercent: 0.02, maxPercent: 2, decimals: 2 },
     IDY: { strengthFactor: 1, minPercent: 0.02, maxPercent: 2, decimals: 2 },
     SSD: { strengthFactor: 50, starterHydration: 0.5, minPercent: 3, maxPercent: 40, decimals: 0 },
-    LSD: { strengthFactor: 80, starterHydration: 1, minPercent: 4, maxPercent: 50, decimals: 0 },
+    LSD: { strengthFactor: 50, starterHydration: 1, minPercent: 3, maxPercent: 40, decimals: 0 },
 }
 
 function equivalentHours(hours: number, tempC: number): number {

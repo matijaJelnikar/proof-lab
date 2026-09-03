@@ -49,7 +49,7 @@ export default function PizzaCalculator() {
                 <span className="absolute px-3 font-medium text-heading -translate-x-1/2 bg-background left-1/2">Leavening</span>
             </div>
             <div className='grid grid-cols-2 gap-4'>
-                <InputField name="rtLeavening" label="Room leaven" value={inputs.rtLeavening} onChange={handleChange} placeholder="1" unit="h" />
+                <InputField name="rtLeavening" label="Room leavening" value={inputs.rtLeavening} onChange={handleChange} placeholder="1" unit="h" />
                 <InputField name="rtTemperature" label="Room Temperature" value={inputs.rtTemperature} onChange={handleChange} placeholder="24" unit="°C" />
                 <InputField name="ctLeavening" label="Cold Leavening" value={inputs.ctLeavening} onChange={handleChange} placeholder="0" unit="h" />
                 <InputField name="ctTemperature" label="Fridge Temperature" value={inputs.ctTemperature} onChange={handleChange} placeholder="4" unit="°C" />
