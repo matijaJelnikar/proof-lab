@@ -1,10 +1,12 @@
 interface InputFieldProps {
     name: string;
     label: string;
-    placeholder: string;
+    placeholder?: string;
+    type?: HTMLInputElement['type'];
     unit?: string;
     step?: number;
     value?: string | number;
+    required?: boolean;
     onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -14,8 +16,10 @@ export default function InputField({
     label,
     placeholder,
     unit,
+    type = 'number',
     step = 1,
     value,
+    required = true,
     onChange
 }: InputFieldProps) {
     return (
@@ -24,13 +28,13 @@ export default function InputField({
             <div className='relative'>
                 <input
                     id={name}
-                    type="number"
+                    type={type}
                     name={name}
                     placeholder={placeholder}
                     step={step}
                     value={value}
+                    required={required}
                     onChange={onChange}
-                    required
                     className={`min-h-11 w-full rounded-md border  pl-3 border-border bg-surface ${unit ? 'pr-9' : 'pr-3'}`}
                 />
                 {unit && (
