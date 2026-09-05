@@ -11,16 +11,16 @@
            c46 0 74-52 50-91
            L324 196
            c-10-15-14-28-14-46V72"
-        fill="none" stroke="#3B2718" stroke-width="14"
+        fill="none" stroke="#b45309" stroke-width="14"
         stroke-linecap="round" stroke-linejoin="round"/>
 
   <!-- Flask neck / rim -->
-  <path d="M184 72h144" fill="none" stroke="#3B2718"
+  <path d="M184 72h144" fill="none" stroke="#b45309"
         stroke-width="14" stroke-linecap="round"/>
 
   <!-- Measurement marks -->
   <path d="M310 110h30 M310 144h30 M310 178h30"
-        fill="none" stroke="#3B2718" stroke-width="7"
+        fill="none" stroke="#b45309" stroke-width="7"
         stroke-linecap="round"/>
 
   <!-- Dough -->
