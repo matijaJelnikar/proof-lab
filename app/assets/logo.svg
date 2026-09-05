@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <title>ProofLab icon</title>
+  <desc>Minimalist laboratory flask containing dough with a camera badge.</desc>
+
+  <!-- Flask -->
+  <path d="M184 72h144
+           M202 72v78
+           c0 18-4 31-14 46
+           L111 342
+           c-24 39 4 91 50 91h190
+           c46 0 74-52 50-91
+           L324 196
+           c-10-15-14-28-14-46V72"
+        fill="none" stroke="#3B2718" stroke-width="14"
+        stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Flask neck / rim -->
+  <path d="M184 72h144" fill="none" stroke="#3B2718"
+        stroke-width="14" stroke-linecap="round"/>
+
+  <!-- Measurement marks -->
+  <path d="M310 110h30 M310 144h30 M310 178h30"
+        fill="none" stroke="#3B2718" stroke-width="7"
+        stroke-linecap="round"/>
+
+  <!-- Dough -->
+  <path d="M137 378
+           c-4-37 17-63 48-73
+           c12-35 48-58 89-52
+           c31 4 55 20 70 43
+           c34 3 57 29 57 62
+           c0 10-2 20-7 29
+           c-7 14-21 23-38 23H171
+           c-20 0-32-13-34-32z"
+        fill="#E8C995" stroke="#B7843D" stroke-width="8"
+        stroke-linejoin="round"/>
+
+  <!-- Dough bubbles -->
+  <path d="M181 323c0-8 6-14 14-14s14 6 14 14
+           M239 349c0-8 6-14 14-14s14 6 14 14
+           M292 314c0-8 6-14 14-14s14 6 14 14
+           M335 348c0-8 6-14 14-14s14 6 14 14"
+        fill="none" stroke="#B7843D" stroke-width="7"
+        stroke-linecap="round"/>
+
+  <!-- Camera badge -->
+  <circle cx="383" cy="378" r="63" fill="#fff"
+          stroke="#3B2718" stroke-width="12"/>
+
+  <!-- Camera -->
+  <path d="M346 363h18l9-11h25l9 11h17
+           c7 0 12 5 12 12v29c0 7-5 12-12 12h-68
+           c-7 0-12-5-12-12v-29c0-7 5-12 12-12z"
+        fill="#3B2718"/>
+
+  <circle cx="385" cy="389" r="19" fill="#fff"/>
+  <circle cx="385" cy="389" r="10" fill="#B7843D"/>
+  <circle cx="410" cy="372" r="5" fill="#fff"/>
+</svg>
