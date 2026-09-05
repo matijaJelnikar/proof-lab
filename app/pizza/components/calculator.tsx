@@ -2,27 +2,35 @@
 import InputField from '@/app/components/ui/input-field';
 import { computePizzaDough } from '@/app/lib/pizza-dough';
 import ResultList from '@/app/components/ui/result-list';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DoughInputs, YeastType, yeastTypes } from '@/app/lib/types';
 import InputToggleSelector from '@/app/components/ui/input-toggle-selector';
+import PizzaRecipeDialog from '@/app/pizza/components/save-pizza-receipe-dialog';
+import { createReceipe } from '@/app/lib/queries/receipes';
+import { type } from 'os';
 
-export default function PizzaCalculator() {
-    const [inputs, setInputs] = useState<DoughInputs>({
-        balls: 2,
-        ballWeight: 270,
-        hydration: 65,
-        salt: 3,
-        rtLeavening: 1,
-        rtTemperature: 24,
-        ctLeavening: 1,
-        ctTemperature: 6,
-        yeastType: 'IDY'
-    })
+const INITIAL_INPUTS: DoughInputs = {
+    balls: 2,
+    ballWeight: 270,
+    hydration: 65,
+    salt: 3,
+    rtLeavening: 1,
+    rtTemperature: 24,
+    ctLeavening: 1,
+    ctTemperature: 6,
+    yeastType: 'IDY',
+} as const;
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-        const { name, value } = e?.target
-        setInputs(prev => ({ ...prev, [name]: value }))
-    }
+export default function PizzaCalculator({ inputs: initialInputs = INITIAL_INPUTS }: { inputs?: DoughInputs }) {
+
+    const [inputs, setInputs] = useState<DoughInputs>(initialInputs)
+    const [showSaveButton, setShowSaveButton] = useState(false)
+    const [isDialogOpen, setIsDialogOpen] = useState(false);
+
+    useEffect(() => {
+        const hasChanges = Object.keys(inputs).some(key => inputs[key as keyof DoughInputs] !== initialInputs[key as keyof DoughInputs])
+        setShowSaveButton(hasChanges)
+    }, [inputs])
 
     const [results, totalDough] = computePizzaDough({
         balls: inputs.balls,
@@ -36,8 +44,25 @@ export default function PizzaCalculator() {
         yeastType: inputs.yeastType,
     })
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, valueAsNumber } = e.target
+        setInputs(prev => ({ ...prev, [name]: Number.isNaN(valueAsNumber) ? 0 : valueAsNumber }))
+    }
+
+    const openSaveDialog = () => {
+        setIsDialogOpen(true)
+    }
+
+    const onConfirmSaveRecipe = ({ receipeName }: { receipeName: string }) => {
+        console.log('Saving recipe:', receipeName, inputs)
+        createReceipe({ name: receipeName, type: 'PIZZA', configuration: inputs })
+    }
+
+
     return (
-        <div className='w-full h-full flex flex-col gap-4'>
+        <div className='w-full h-full flex flex-col gap-4' >
+            <PizzaRecipeDialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} onConfirm={onConfirmSaveRecipe} />
+
             <div className='grid grid-cols-2 gap-4'>
                 <InputField name="balls" label="Dough Balls" value={inputs.balls} onChange={handleChange} placeholder="2" />
                 <InputField name="ballWeight" label="Ball Weight" value={inputs.ballWeight} onChange={handleChange} placeholder="270" step={10} unit="g" />
@@ -58,17 +83,26 @@ export default function PizzaCalculator() {
                 <InputToggleSelector<YeastType> options={yeastTypes} selectedOption={inputs.yeastType} onChange={(option) => setInputs(prev => ({ ...prev, yeastType: option }))} />
             </div>
 
-            <div className="inline-flex items-center justify-center w-full">
+            <div className="relative inline-flex items-center justify-center w-full">
                 <hr className="w-88 h-px my-4 bg-border border-0" />
                 <span className="absolute px-3 font-medium text-heading -translate-x-1/2 bg-background left-1/2">Total dough:
                     <span className={`ml-1 font-bold ${totalDough > 0 ? 'text-accent' : 'text-muted'}`}>
                         {totalDough} g
                     </span>
                 </span>
+                {showSaveButton && (
+                    <button
+                        type="button"
+                        onClick={openSaveDialog}
+                        className='absolute right-0 px-3 py-1 rounded-md bg-background text-accent hover:underline cursor-pointer'
+                    >
+                        Save
+                    </button>
+                )}
             </div>
             <div className='w-full'>
-                <ResultList results={results.filter(r => r.label !== 'Total dough')} />
+                <ResultList results={results} />
             </div>
-        </div>
+        </div >
     )
 }

@@ -24,8 +24,10 @@ const YEAST_PROFILES: Record<YeastType, YeastProfile> = {
 }
 
 function equivalentHours(hours: number, tempC: number): number {
-    if (!Number.isFinite(hours) || !Number.isFinite(tempC) || hours <= 0) return 0
-    return hours * Math.pow(2, (tempC - REFERENCE_TEMP_C) / 10)
+    const h = Number(hours)
+    const t = Number(tempC)
+    if (!Number.isFinite(h) || !Number.isFinite(t) || h <= 0) return 0
+    return h * Math.pow(2, (t - REFERENCE_TEMP_C) / 10)
 }
 
 function clamp(n: number, min: number, max: number): number {

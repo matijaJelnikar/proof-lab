@@ -1,4 +1,8 @@
+import ReceipesList from '@/app/components/ui/receipes-list';
+import ReceipesListSkeleton from '@/app/components/ui/receipes-list-skeleton';
+import Spinner from '@/app/components/ui/spinner';
 import Link from 'next/link';
+import { Suspense } from 'react';
 
 const DOUGH = String.raw`        .-~~~~~~~-.
       .'  o  .  o  '.
@@ -38,6 +42,15 @@ export default function Home() {
             </Link>
           </div>
         </div>
+        <div className='relative w-full inline-flex items-center justify-center mt-8'>
+          <hr className="w-full h-px my-8 bg-border border-0" />
+          <span className="absolute px-3 font-medium text-heading -translate-x-1/2 bg-background left-1/2">Presets</span>
+        </div>
+
+
+        <Suspense fallback={<ReceipesListSkeleton />}>
+          <ReceipesList />
+        </Suspense>
       </main>
     </div>
   );

@@ -21,3 +21,6 @@ export const yeastTypes = {
 } as const;
 
 export type YeastType = keyof typeof yeastTypes;
+
+export const receipeTypes = ['PIZZA', 'BREAD'] as const;
+export type ReceipeType = (typeof receipeTypes)[number];
