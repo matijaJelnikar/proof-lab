@@ -1,8 +1,11 @@
+import ReceipeCard from '@/app/components/ui/receipe-card';
 import { getAllReceipes } from '@/app/lib/queries/receipes';
 import { ReceipeType } from '@/app/lib/types';
-import Link from 'next/link';
 
 type Receipe = Awaited<ReturnType<typeof getAllReceipes>>[number];
+
+// Fixed locale + timezone so the server and the browser always agree on the string.
+const dateFormatter = new Intl.DateTimeFormat('en-GB', { dateStyle: 'medium', timeZone: 'UTC' });
 
 function ReceipeColumn({ title, receipes }: { title: string, receipes: Receipe[] }) {
     return (
@@ -13,16 +16,13 @@ function ReceipeColumn({ title, receipes }: { title: string, receipes: Receipe[]
                 <p className='text-sm text-muted'>Nothing saved yet</p>
             ) : (
                 receipes.map((receipe) => (
-                    <Link
+                    <ReceipeCard
                         key={receipe.id}
-                        href={`/${receipe.type.toLowerCase()}?receipe=${receipe.id}`}
-                        className='flex flex-col gap-1 bg-accent/5 border border-accent/50 p-2 rounded-md hover:border-accent hover:bg-accent/10 transition-colors'
-                    >
-                        <span className='text-sm'>{receipe.name}</span>
-                        <span className='text-sm text-muted'>
-                            {new Date(receipe.createdAt).toLocaleDateString()}
-                        </span>
-                    </Link>
+                        id={receipe.id}
+                        name={receipe.name}
+                        type={receipe.type}
+                        createdAt={dateFormatter.format(receipe.createdAt)}
+                    />
                 ))
             )}
         </section>

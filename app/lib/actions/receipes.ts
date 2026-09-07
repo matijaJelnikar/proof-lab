@@ -47,3 +47,8 @@ export async function saveReceipe(data: SaveReceipeData): Promise<SaveResult> {
 
     return { status: 'created', id: receipe.id }
 }
+
+export async function deleteReceipe(id: number) {
+    await db.delete(receipes).where(eq(receipes.id, id))
+    revalidatePath('/')
+}
