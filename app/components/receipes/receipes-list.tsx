@@ -1,4 +1,5 @@
-import ReceipeCard from '@/app/components/ui/receipe-card';
+
+import ReceipeCard from '@/app/components/receipes/receipe-card';
 import { getAllReceipes } from '@/app/lib/queries/receipes';
 import { ReceipeType } from '@/app/lib/types';
 

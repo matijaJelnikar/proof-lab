@@ -1,5 +1,6 @@
-import ReceipesList from '@/app/components/ui/receipes-list';
-import ReceipesListSkeleton from '@/app/components/ui/receipes-list-skeleton';
+
+import ReceipesList from '@/app/components/receipes/receipes-list';
+import ReceipesListSkeleton from '@/app/components/receipes/receipes-list-skeleton';
 import Link from 'next/link';
 import { Suspense } from 'react';
 
