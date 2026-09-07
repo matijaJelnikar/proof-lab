@@ -29,7 +29,7 @@ export async function saveReceipe(data: SaveReceipeData): Promise<SaveResult> {
         await db.update(receipes)
             .set({ type: data.type, configuration: data.configuration })
             .where(eq(receipes.id, existing.id))
-        revalidatePath('/pizza')
+        revalidatePath(`/${data.type.toLowerCase()}`)
         return { status: 'updated', id: existing.id }
     }
 
@@ -42,6 +42,8 @@ export async function saveReceipe(data: SaveReceipeData): Promise<SaveResult> {
             configuration: data.configuration
         })
         .returning()
+
+    revalidatePath(`/${data.type.toLowerCase()}`)
 
     return { status: 'created', id: receipe.id }
 }
