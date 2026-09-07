@@ -2,35 +2,21 @@
 import InputField from '@/app/components/ui/input-field';
 import { computePizzaDough } from '@/app/lib/pizza-dough';
 import ResultList from '@/app/components/ui/result-list';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { DoughInputs, YeastType, yeastTypes } from '@/app/lib/types';
 import InputToggleSelector from '@/app/components/ui/input-toggle-selector';
-import PizzaRecipeDialog from '@/app/pizza/components/save-pizza-receipe-dialog';
-import { createReceipe } from '@/app/lib/queries/receipes';
-import { type } from 'os';
+import SaveReceipeDialog from '@/app/components/ui/save-receipe-dialog';
 
-const INITIAL_INPUTS: DoughInputs = {
-    balls: 2,
-    ballWeight: 270,
-    hydration: 65,
-    salt: 3,
-    rtLeavening: 1,
-    rtTemperature: 24,
-    ctLeavening: 1,
-    ctTemperature: 6,
-    yeastType: 'IDY',
-} as const;
 
-export default function PizzaCalculator({ inputs: initialInputs = INITIAL_INPUTS }: { inputs?: DoughInputs }) {
 
+export default function PizzaCalculator({ initialInputs, existingReceipeName }: { initialInputs: DoughInputs, existingReceipeName?: string }) {
     const [inputs, setInputs] = useState<DoughInputs>(initialInputs)
-    const [showSaveButton, setShowSaveButton] = useState(false)
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
-    useEffect(() => {
-        const hasChanges = Object.keys(inputs).some(key => inputs[key as keyof DoughInputs] !== initialInputs[key as keyof DoughInputs])
-        setShowSaveButton(hasChanges)
-    }, [inputs])
+
+    const hasChanges = (Object.keys(inputs) as Array<keyof DoughInputs>).some(
+        key => inputs[key] !== initialInputs[key]
+    )
 
     const [results, totalDough] = computePizzaDough({
         balls: inputs.balls,
@@ -44,6 +30,7 @@ export default function PizzaCalculator({ inputs: initialInputs = INITIAL_INPUTS
         yeastType: inputs.yeastType,
     })
 
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, valueAsNumber } = e.target
         setInputs(prev => ({ ...prev, [name]: Number.isNaN(valueAsNumber) ? 0 : valueAsNumber }))
@@ -51,17 +38,18 @@ export default function PizzaCalculator({ inputs: initialInputs = INITIAL_INPUTS
 
     const openSaveDialog = () => {
         setIsDialogOpen(true)
-    }
 
-    const onConfirmSaveRecipe = ({ receipeName }: { receipeName: string }) => {
-        console.log('Saving recipe:', receipeName, inputs)
-        createReceipe({ name: receipeName, type: 'PIZZA', configuration: inputs })
     }
-
 
     return (
         <div className='w-full h-full flex flex-col gap-4' >
-            <PizzaRecipeDialog isDialogOpen={isDialogOpen} setIsDialogOpen={setIsDialogOpen} onConfirm={onConfirmSaveRecipe} />
+            <SaveReceipeDialog
+                open={isDialogOpen}
+                onClose={() => setIsDialogOpen(false)}
+                type='PIZZA'
+                configuration={inputs}
+                initialName={existingReceipeName}
+            />
 
             <div className='grid grid-cols-2 gap-4'>
                 <InputField name="balls" label="Dough Balls" value={inputs.balls} onChange={handleChange} placeholder="2" />
@@ -90,7 +78,7 @@ export default function PizzaCalculator({ inputs: initialInputs = INITIAL_INPUTS
                         {totalDough} g
                     </span>
                 </span>
-                {showSaveButton && (
+                {hasChanges && (
                     <button
                         type="button"
                         onClick={openSaveDialog}
