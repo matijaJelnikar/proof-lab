@@ -5,14 +5,14 @@ import Image from 'next/image';
 import logo from '@/app/assets/logo.svg'; // Static image in the assets folder
 import { usePathname } from 'next/navigation';
 
-const NAV = [
+export const NAV = [
     { href: '/pizza', label: 'Pizza' },
     { href: '/bread', label: 'Bread' },
 ];
 
 export default function MainHeader() {
     return (
-        <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur">
+        <header className="sticky top-0 z-50 border-b border-border/40 bg-background/80 backdrop-blur-2xl">
             <div className="mx-auto flex w-full max-w-3xl items-center justify-between gap-4 px-6 py-3 sm:px-16">
                 <Link href="/" className="group flex items-center gap-3">
                     <Image
@@ -29,7 +29,7 @@ export default function MainHeader() {
                 </Link>
 
                 <nav>
-                    <ul className="flex items-center gap-1 text-sm">
+                    <ul className="items-center gap-1 text-sm hidden sm:flex">
                         {NAV.map(({ href, label }) => {
                             const pathname = usePathname();
                             const active = pathname === href;

@@ -28,7 +28,7 @@ export default async function PizzaPage({ searchParams }: { searchParams: Promis
 
     return (
         <div className='flex flex-col w-full pt-4'>
-            <div className="flex flex-col self-center max-w-4/5 sm:max-w-3xl justify-center h-full gap-6">
+            <div className="flex flex-col self-center mx-6  sm:max-w-3xl justify-center h-full gap-6">
                 <PizzaCalculator key={receipeId ?? 'new'} initialInputs={receipe?.configuration} existingReceipeName={receipe?.name} />
             </div>
         </div>
