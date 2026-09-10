@@ -1,36 +1,40 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Proof Lab
 
-## Getting Started
+A dough calculator for pizza and bread. Enter ball count, weight, hydration, salt
+and your fermentation schedule — it works out flour, water, salt and the yeast
+amount for that schedule, then lets you save the setup as a named recipe.
 
-First, run the development server:
+The yeast maths is temperature-aware: room- and cold-fermentation hours are
+converted to a 25 °C equivalent (doubling per +10 °C), then scaled per yeast type
+(compressed, active dry, instant dry, stiff or liquid sourdough starter).
+
+## Stack
+
+- Next.js 16 (App Router, Server Actions)
+- React 19
+- Tailwind CSS 4
+- Drizzle ORM + SQLite (`better-sqlite3`), local file `proof-lab.db`
+
+## Getting started
 
 ```bash
+npm install
+npx drizzle-kit push   # create/update proof-lab.db
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Layout
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+app/
+  page.tsx                  # pick pizza or bread, list saved recipes
+  pizza/, bread/            # route + its calculator component
+  components/               # shared UI, recipe list/card/save dialog
+  lib/
+    pizza-dough.ts          # the calculation
+    types.ts                # DoughInputs, yeast types
+    schema.ts, db.ts        # Drizzle schema + connection
+    queries/, actions/      # reads and Server Actions
+```
