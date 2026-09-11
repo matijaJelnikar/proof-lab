@@ -1,9 +1,11 @@
 'use server'
 
 import { db } from '@/app/lib/db'
+import { requireUser } from '@/app/lib/dal'
+import { getReceipeByName } from '@/app/lib/queries/receipes'
 import { receipes } from '@/app/lib/schema'
 import { ReceipeType, DoughInputs } from '@/app/lib/types'
-import { eq } from 'drizzle-orm'
+import { and, eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 
 type SaveReceipeData = {
@@ -18,8 +20,15 @@ export type SaveResult =
     | { status: 'updated'; id: number }
     | { status: 'conflict'; existingId: number }
 
+function revalidateReceipes(type: ReceipeType) {
+    revalidatePath(`/${type.toLowerCase()}`)
+    revalidatePath('/')
+}
+
 export async function saveReceipe(data: SaveReceipeData): Promise<SaveResult> {
-    const existing = await db.select().from(receipes).where(eq(receipes.name, data.name)).get()
+    const user = await requireUser()
+
+    const existing = await getReceipeByName(data.name, data.type)
 
     if (existing && !data.overwrite) {
         return { status: 'conflict', existingId: existing.id }
@@ -28,8 +37,8 @@ export async function saveReceipe(data: SaveReceipeData): Promise<SaveResult> {
     if (existing) {
         await db.update(receipes)
             .set({ type: data.type, configuration: data.configuration })
-            .where(eq(receipes.id, existing.id))
-        revalidatePath(`/${data.type.toLowerCase()}`)
+            .where(and(eq(receipes.id, existing.id), eq(receipes.userId, user.id)))
+        revalidateReceipes(data.type)
         return { status: 'updated', id: existing.id }
     }
 
@@ -39,16 +48,19 @@ export async function saveReceipe(data: SaveReceipeData): Promise<SaveResult> {
             name: data.name,
             type: data.type,
             createdAt: Date.now(),
-            configuration: data.configuration
+            configuration: data.configuration,
+            userId: user.id
         })
         .returning()
 
-    revalidatePath(`/${data.type.toLowerCase()}`)
+    revalidateReceipes(data.type)
 
     return { status: 'created', id: receipe.id }
 }
 
 export async function deleteReceipe(id: number) {
-    await db.delete(receipes).where(eq(receipes.id, id))
+    const user = await requireUser()
+
+    await db.delete(receipes).where(and(eq(receipes.id, id), eq(receipes.userId, user.id)))
     revalidatePath('/')
 }
