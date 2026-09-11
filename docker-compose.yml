@@ -14,9 +14,8 @@ services:
       - AUTH_GOOGLE_SECRET=${AUTH_GOOGLE_SECRET}
     volumes:
       - proof_lab_data:/data
-    # local testing only; on the server use the proxy's network instead
     ports:
-      - '3000:3000'
+      - '3001:3000'
 
 volumes:
   proof_lab_data:
