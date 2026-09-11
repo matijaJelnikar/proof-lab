@@ -1,5 +1,7 @@
 
 import ReceipeCard from '@/app/components/receipes/receipe-card';
+import SignInButton from '@/app/components/auth/sign-in-button';
+import { getCurrentUser } from '@/app/lib/dal';
 import { getAllReceipes } from '@/app/lib/queries/receipes';
 import { ReceipeType } from '@/app/lib/types';
 
@@ -31,6 +33,17 @@ function ReceipeColumn({ title, receipes }: { title: string, receipes: Receipe[]
 }
 
 export default async function ReceipesList() {
+    const user = await getCurrentUser();
+
+    if (!user) {
+        return (
+            <div className='flex w-full flex-col items-center gap-3 pt-8'>
+                <p className='text-sm text-muted'>Sign in to save your recipes and find them again later.</p>
+                <SignInButton />
+            </div>
+        )
+    }
+
     const receipes = await getAllReceipes();
 
     const byType = (type: ReceipeType) => receipes.filter((receipe) => receipe.type === type);

@@ -6,12 +6,13 @@ import InputToggleSelector from '@/app/components/ui/input-toggle-selector';
 import ResultList from '@/app/components/ui/result-list';
 import { computePizzaDough } from '@/app/lib/pizza-dough';
 import { DoughInputs, YeastType, yeastTypes } from '@/app/lib/types';
+import Link from 'next/link';
 import { useState } from 'react';
 
 
 
 
-export default function PizzaCalculator({ initialInputs, existingReceipeName }: { initialInputs: DoughInputs, existingReceipeName?: string }) {
+export default function PizzaCalculator({ initialInputs, existingReceipeName, canSave = false }: { initialInputs: DoughInputs, existingReceipeName?: string, canSave?: boolean }) {
     const [inputs, setInputs] = useState<DoughInputs>(initialInputs)
     const [isDialogOpen, setIsDialogOpen] = useState(false);
 
@@ -80,7 +81,7 @@ export default function PizzaCalculator({ initialInputs, existingReceipeName }: 
                         {totalDough} g
                     </span>
                 </span>
-                {hasChanges && (
+                {hasChanges && (canSave ? (
                     <button
                         type="button"
                         onClick={openSaveDialog}
@@ -88,7 +89,14 @@ export default function PizzaCalculator({ initialInputs, existingReceipeName }: 
                     >
                         Save
                     </button>
-                )}
+                ) : (
+                    <Link
+                        href='/login?from=/pizza'
+                        className='absolute right-0 px-3 py-1 rounded-md bg-background text-muted hover:text-accent hover:underline'
+                    >
+                        Sign in to save
+                    </Link>
+                ))}
             </div>
             <div className='w-full'>
                 <ResultList results={results} />

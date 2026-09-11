@@ -1,3 +1,4 @@
+import { getCurrentUser } from '@/app/lib/dal';
 import { getReceipeById } from '@/app/lib/queries/receipes';
 import { DoughInputs } from '@/app/lib/types';
 import PizzaCalculator from '@/app/pizza/components/calculator';
@@ -17,7 +18,8 @@ const INITIAL_INPUTS: DoughInputs = {
 export default async function PizzaPage({ searchParams }: { searchParams: Promise<{ receipe?: string }> }) {
 
     const receipeId = (await searchParams).receipe
-    let receipe: { name: string, configuration: DoughInputs } | null = { name: '', configuration: INITIAL_INPUTS }
+    const user = await getCurrentUser()
+    const receipe: { name: string, configuration: DoughInputs } = { name: '', configuration: INITIAL_INPUTS }
     if (receipeId) {
         const recFromDb = await getReceipeById(Number(receipeId))
         if (recFromDb) {
@@ -29,7 +31,12 @@ export default async function PizzaPage({ searchParams }: { searchParams: Promis
     return (
         <div className='flex flex-col w-full pt-4'>
             <div className="flex flex-col self-center mx-6  sm:max-w-3xl justify-center h-full gap-6">
-                <PizzaCalculator key={receipeId ?? 'new'} initialInputs={receipe?.configuration} existingReceipeName={receipe?.name} />
+                <PizzaCalculator
+                    key={receipeId ?? 'new'}
+                    initialInputs={receipe.configuration}
+                    existingReceipeName={receipe.name}
+                    canSave={user !== null}
+                />
             </div>
         </div>
 
