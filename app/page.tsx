@@ -43,7 +43,7 @@ function BakeChoice({ href, label, art, tilt }: BakeChoiceProps) {
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-background font-sans">
+    <div className="flex flex-col flex-1 items-center justify-center bg-background font-sans pb-4">
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center px-6 py-12 sm:px-16 sm:py-32">
         <h2 className='text-2xl sm:text-3xl font-bold pb-8'>What are you baking?</h2>
         <div className='flex w-full flex-col gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-8'>

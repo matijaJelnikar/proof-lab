@@ -45,7 +45,7 @@ export default function PizzaCalculator({ initialInputs, existingReceipeName, ca
     }
 
     return (
-        <div className='w-full h-full flex flex-col gap-4' >
+        <div className='w-full h-full flex flex-col gap-4 pb-4' >
             <SaveReceipeDialog
                 open={isDialogOpen}
                 onClose={() => setIsDialogOpen(false)}
