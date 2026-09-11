@@ -1,0 +1,17 @@
+node_modules
+.next
+.git
+.gitignore
+Dockerfile*
+docker-compose.yml
+.dockerignore
+
+# never bake the local dev database or secrets into the image
+*.db
+.env*
+
+*.tsbuildinfo
+README.md
+AGENTS.md
+CLAUDE.md
+.vscode
