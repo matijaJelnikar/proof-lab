@@ -13,25 +13,21 @@ export default async function UserMenu() {
 
     return (
         <div className='flex items-center gap-2'>
-
             <form
                 action={async () => {
                     'use server'
                     await signOut({ redirectTo: '/' })
-                }}
-            >
+                }}>
                 <button
                     type='submit'
-                    className='flex items-center gap-2 rounded-md px-2 py-1 text-sm text-muted cursor-pointer hover:text-foreground hover:bg-border/20 transition-colors'
-                >
+                    className='flex items-center gap-2 rounded-md px-2 py-1 text-sm text-muted cursor-pointer hover:text-foreground hover:bg-border/20 transition-colors'>
                     {user.image && (
                         <Image
                             src={user.image}
                             alt=''
                             width={28}
                             height={28}
-                            className='rounded-full border border-border'
-                        />
+                            className='rounded-full border border-border' />
                     )}
                     Sign out
                 </button>

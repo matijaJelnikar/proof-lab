@@ -6,12 +6,10 @@ export default function SignInButton({ redirectTo = '/', className = '' }: { red
             action={async () => {
                 'use server'
                 await signIn('google', { redirectTo })
-            }}
-        >
+            }}>
             <button
                 type='submit'
-                className={`flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-1.5 cursor-pointer hover:border-accent hover:bg-accent/10 transition-colors ${className}`}
-            >
+                className={`flex items-center gap-2 rounded-md border border-border bg-surface px-3 py-1.5 cursor-pointer hover:border-accent hover:bg-accent/10 transition-colors ${className}`}>
                 <svg viewBox='0 0 24 24' className='h-4 w-4' aria-hidden='true'>
                     <path fill='#4285F4' d='M23.5 12.3c0-.8-.1-1.6-.2-2.3H12v4.5h6.5a5.6 5.6 0 0 1-2.4 3.7v3h3.9c2.3-2.1 3.5-5.2 3.5-8.9z' />
                     <path fill='#34A853' d='M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.9-3c-1.1.7-2.4 1.1-4 1.1-3.1 0-5.7-2.1-6.6-4.9H1.4v3.1A12 12 0 0 0 12 24z' />
