@@ -1,5 +1,7 @@
 # Proof Lab
 
+**[prooflab.duckdns.org](https://prooflab.duckdns.org/)**
+
 A dough calculator for pizza and bread. Enter ball count, weight, hydration, salt
 and your fermentation schedule — it works out flour, water, salt and the yeast
 amount for that schedule, then lets you save the setup as a named recipe.
