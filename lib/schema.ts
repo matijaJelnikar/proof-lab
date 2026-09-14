@@ -1,5 +1,5 @@
 
-import { DoughInputs, receipeTypes } from '@/app/lib/types';
+import { DoughInputs, receipeTypes } from '@/lib/types';
 import type { AdapterAccountType } from 'next-auth/adapters';
 import { integer, primaryKey, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
 

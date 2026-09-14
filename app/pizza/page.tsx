@@ -1,6 +1,6 @@
-import { getCurrentUser } from '@/app/lib/dal';
-import { getReceipeById } from '@/app/lib/queries/receipes';
-import { DoughInputs } from '@/app/lib/types';
+import { getCurrentUser } from '@/lib/dal';
+import { getReceipeById } from '@/lib/queries/receipes';
+import { DoughInputs } from '@/lib/types';
 import PizzaCalculator from '@/app/pizza/components/calculator';
 
 const INITIAL_INPUTS: DoughInputs = {

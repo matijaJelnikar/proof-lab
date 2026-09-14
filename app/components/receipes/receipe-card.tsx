@@ -1,7 +1,7 @@
 'use client'
 
 import Dialog from '@/app/components/ui/dialog'
-import { deleteReceipe } from '@/app/lib/actions/receipes'
+import { deleteReceipe } from '@/lib/actions/receipes'
 import Link from 'next/link'
 import { useState, useTransition } from 'react'
 

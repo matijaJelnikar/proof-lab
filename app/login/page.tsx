@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 
 import SignInButton from '@/app/components/auth/sign-in-button'
-import { getCurrentUser } from '@/app/lib/dal'
+import { getCurrentUser } from '@/lib/dal'
 
 export default async function LoginPage({ searchParams }: { searchParams: Promise<{ from?: string }> }) {
     const redirectTo = (await searchParams).from ?? '/'

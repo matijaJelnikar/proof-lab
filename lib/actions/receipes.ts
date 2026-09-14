@@ -1,10 +1,10 @@
 'use server'
 
-import { db } from '@/app/lib/db'
-import { requireUser } from '@/app/lib/dal'
-import { getReceipeByName } from '@/app/lib/queries/receipes'
-import { receipes } from '@/app/lib/schema'
-import { ReceipeType, DoughInputs } from '@/app/lib/types'
+import { db } from '@/lib/db'
+import { requireUser } from '@/lib/dal'
+import { getReceipeByName } from '@/lib/queries/receipes'
+import { receipes } from '@/lib/schema'
+import { ReceipeType, DoughInputs } from '@/lib/types'
 import { and, eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 

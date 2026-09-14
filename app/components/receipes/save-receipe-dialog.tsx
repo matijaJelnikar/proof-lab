@@ -1,8 +1,8 @@
 'use client'
 
 import Dialog from '@/app/components/ui/dialog'
-import { saveReceipe } from '@/app/lib/actions/receipes'
-import { DoughInputs, ReceipeType } from '@/app/lib/types'
+import { saveReceipe } from '@/lib/actions/receipes'
+import { DoughInputs, ReceipeType } from '@/lib/types'
 import { useState, useTransition } from 'react'
 
 interface SaveReceipeDialogProps {

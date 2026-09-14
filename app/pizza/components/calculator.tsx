@@ -4,8 +4,8 @@ import SaveReceipeDialog from '@/app/components/receipes/save-receipe-dialog';
 import InputField from '@/app/components/ui/input-field';
 import InputToggleSelector from '@/app/components/ui/input-toggle-selector';
 import ResultList from '@/app/components/ui/result-list';
-import { computePizzaDough } from '@/app/lib/pizza-dough';
-import { DoughInputs, YeastType, yeastTypes } from '@/app/lib/types';
+import { computePizzaDough } from '@/lib/pizza-dough';
+import { DoughInputs, YeastType, yeastTypes } from '@/lib/types';
 import Link from 'next/link';
 import { useState } from 'react';
 

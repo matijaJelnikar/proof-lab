@@ -1,9 +1,9 @@
 
 import ReceipeCard from '@/app/components/receipes/receipe-card';
 import SignInButton from '@/app/components/auth/sign-in-button';
-import { getCurrentUser } from '@/app/lib/dal';
-import { getAllReceipes } from '@/app/lib/queries/receipes';
-import { ReceipeType } from '@/app/lib/types';
+import { getCurrentUser } from '@/lib/dal';
+import { getAllReceipes } from '@/lib/queries/receipes';
+import { ReceipeType } from '@/lib/types';
 
 type Receipe = Awaited<ReturnType<typeof getAllReceipes>>[number];
 

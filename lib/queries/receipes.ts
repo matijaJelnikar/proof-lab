@@ -1,8 +1,8 @@
 
-import { db } from '@/app/lib/db'
-import { getCurrentUser, requireUser } from '@/app/lib/dal'
-import { receipes } from '@/app/lib/schema'
-import { ReceipeType } from '@/app/lib/types'
+import { db } from '@/lib/db'
+import { getCurrentUser, requireUser } from '@/lib/dal'
+import { receipes } from '@/lib/schema'
+import { ReceipeType } from '@/lib/types'
 import { and, eq } from 'drizzle-orm'
 import { connection } from 'next/server'
 

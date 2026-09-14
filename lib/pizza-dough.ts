@@ -1,6 +1,6 @@
 import type { DoughCalculatorResult } from '@/app/components/ui/result-list';
-import type { DoughInputs, YeastType } from '@/app/lib/types';
-import { yeastTypes } from '@/app/lib/types';
+import type { DoughInputs, YeastType } from '@/lib/types';
+import { yeastTypes } from '@/lib/types';
 
 const REFERENCE_TEMP_C = 25
 

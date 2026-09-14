@@ -1,8 +1,7 @@
 import Image from 'next/image'
 
 import { signOut } from '@/auth'
-import { getCurrentUser } from '@/app/lib/dal'
-import SignInButton from '@/app/components/auth/sign-in-button'
+import { getCurrentUser } from '@/lib/dal'
 
 export default async function UserMenu() {
     const user = await getCurrentUser()
