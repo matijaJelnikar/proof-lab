@@ -35,8 +35,8 @@ export default function PizzaCalculator({ initialInputs, existingReceipeName, ca
 
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, valueAsNumber } = e.target
-        setInputs(prev => ({ ...prev, [name]: Number.isNaN(valueAsNumber) ? 0 : valueAsNumber }))
+        const { name, value } = e.target
+        setInputs(prev => ({ ...prev, [name]: Number(value.replace(',', '.')) || 0 }))
     }
 
     const openSaveDialog = () => {
@@ -56,9 +56,9 @@ export default function PizzaCalculator({ initialInputs, existingReceipeName, ca
 
             <div className='grid grid-cols-2 gap-4'>
                 <InputField name="balls" label="Dough Balls" value={inputs.balls} onChange={handleChange} placeholder="2" />
-                <InputField name="ballWeight" label="Ball Weight" value={inputs.ballWeight} onChange={handleChange} placeholder="270" step={10} unit="g" />
+                <InputField name="ballWeight" label="Ball Weight" value={inputs.ballWeight} onChange={handleChange} placeholder="270" unit="g" />
                 <InputField name="hydration" label="Hydration" value={inputs.hydration} onChange={handleChange} placeholder="65" unit="%" />
-                <InputField name="salt" label="Salt" value={inputs.salt} onChange={handleChange} placeholder="3" step={0.1} unit="%" />
+                <InputField name="salt" label="Salt" value={inputs.salt} onChange={handleChange} placeholder="3" unit="%" />
             </div>
             <div className="inline-flex items-center justify-center w-full">
                 <hr className="w-88 h-px my-4 bg-border border-0" />
