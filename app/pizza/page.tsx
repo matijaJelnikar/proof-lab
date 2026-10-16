@@ -22,8 +22,8 @@ export default async function PizzaPage({ searchParams }: { searchParams: Promis
     const receipe: { name: string, configuration: DoughInputs } = { name: '', configuration: INITIAL_INPUTS }
     if (receipeId) {
         const recFromDb = await getReceipeById(Number(receipeId))
-        if (recFromDb) {
-            receipe.configuration = recFromDb.configuration
+        if (recFromDb?.type === 'PIZZA') {
+            receipe.configuration = recFromDb.configuration as DoughInputs
             receipe.name = recFromDb.name
         }
     }

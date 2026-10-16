@@ -4,14 +4,14 @@ import { db } from '@/lib/db'
 import { requireUser } from '@/lib/dal'
 import { getReceipeByName } from '@/lib/queries/receipes'
 import { receipes } from '@/lib/schema'
-import { ReceipeType, DoughInputs } from '@/lib/types'
+import { ReceipeType, ReceipeConfiguration } from '@/lib/types'
 import { and, eq } from 'drizzle-orm'
 import { revalidatePath } from 'next/cache'
 
 type SaveReceipeData = {
     name: string
     type: ReceipeType
-    configuration: DoughInputs
+    configuration: ReceipeConfiguration
     overwrite?: boolean
 }
 

@@ -1,5 +1,5 @@
 
-import { DoughInputs, receipeTypes } from '@/lib/types';
+import { ReceipeConfiguration, receipeTypes } from '@/lib/types';
 import type { AdapterAccountType } from 'next-auth/adapters';
 import { integer, primaryKey, sqliteTable, text, unique } from 'drizzle-orm/sqlite-core';
 
@@ -49,7 +49,7 @@ export const receipes = sqliteTable('receipes', {
     name: text('name').notNull(),
     type: text('type', { enum: receipeTypes }).notNull(),
     createdAt: integer('created_at').notNull(),
-    configuration: text('configuration', { mode: 'json' }).$type<DoughInputs>().notNull(),
+    configuration: text('configuration', { mode: 'json' }).$type<ReceipeConfiguration>().notNull(),
     userId: text('user_id').notNull().references(() => users.id, { onDelete: 'cascade' })
 }, (receipe) => [
     unique().on(receipe.userId, receipe.name, receipe.type)

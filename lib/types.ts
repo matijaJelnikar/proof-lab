@@ -12,6 +12,13 @@ export interface DoughInputs {
 
 export type DoughInputKeys = keyof DoughInputs
 
+export interface BreadInputs extends Omit<DoughInputs, 'balls' | 'ballWeight'> {
+    loaves: number
+    loafWeight: number
+}
+
+export type ReceipeConfiguration = DoughInputs | BreadInputs
+
 export const yeastTypes = {
     CY: 'Compressed Yeast',
     ADY: 'Active Dry Yeast',

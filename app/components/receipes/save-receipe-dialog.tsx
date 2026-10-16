@@ -2,19 +2,20 @@
 
 import Dialog from '@/app/components/ui/dialog'
 import { saveReceipe } from '@/lib/actions/receipes'
-import { DoughInputs, ReceipeType } from '@/lib/types'
+import { ReceipeConfiguration, ReceipeType } from '@/lib/types'
 import { useState, useTransition } from 'react'
 
 interface SaveReceipeDialogProps {
     open: boolean
     onClose: () => void
     type: ReceipeType
-    configuration: DoughInputs
+    configuration: ReceipeConfiguration
     initialName?: string
+    namePlaceholder?: string
     onSaved?: (id: number) => void
 }
 
-export default function SaveReceipeDialog({ open, onClose, type, configuration, initialName = '', onSaved }: SaveReceipeDialogProps) {
+export default function SaveReceipeDialog({ open, onClose, type, configuration, initialName = '', namePlaceholder = 'Napoli Style - 24h Cold Fermentation', onSaved }: SaveReceipeDialogProps) {
     const [name, setName] = useState(initialName)
     const [conflict, setConflict] = useState(false)
     const [isPending, startTransition] = useTransition()
@@ -58,7 +59,7 @@ export default function SaveReceipeDialog({ open, onClose, type, configuration, 
                         type='text'
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder='Napoli Style - 24h Cold Fermentation'
+                        placeholder={namePlaceholder}
                         className='mt-1 w-full rounded-md border border-border bg-surface px-3 py-1'
                     />
                     <div className='mt-4 flex justify-end gap-2'>

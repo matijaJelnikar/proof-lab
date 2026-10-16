@@ -1,5 +1,5 @@
 import type { DoughCalculatorResult } from '@/app/components/ui/result-list';
-import type { DoughInputs, YeastType } from '@/lib/types';
+import type { BreadInputs, DoughInputs, YeastType } from '@/lib/types';
 import { yeastTypes } from '@/lib/types';
 
 const REFERENCE_TEMP_C = 25
@@ -34,9 +34,9 @@ function clamp(n: number, min: number, max: number): number {
     return Math.min(Math.max(n, min), max)
 }
 
-export function computePizzaDough({
-    balls,
-    ballWeight,
+type DoughParams = Omit<DoughInputs, 'balls' | 'ballWeight'>
+
+function computeDough(totalWeight: number, {
     hydration,
     salt,
     rtLeavening,
@@ -44,10 +44,7 @@ export function computePizzaDough({
     ctLeavening = 0,
     ctTemperature = 4,
     yeastType
-}: DoughInputs): [DoughCalculatorResult[], number] {
-
-
-    const totalWeight = balls * ballWeight
+}: DoughParams): [DoughCalculatorResult[], number] {
     const profile = YEAST_PROFILES[yeastType] ?? YEAST_PROFILES.IDY
 
     const fermentHours =
@@ -90,4 +87,12 @@ export function computePizzaDough({
         { label: 'Salt', value: roundNumber(saltWeight, 1), unit: 'g' },
         { label: yeastTypes[yeastType] ?? 'Yeast', value: roundNumber(yeastWeight, profile.decimals), unit: 'g' },
     ], totalWeight]
+}
+
+export function computePizzaDough({ balls, ballWeight, ...params }: DoughInputs): [DoughCalculatorResult[], number] {
+    return computeDough(balls * ballWeight, params)
+}
+
+export function computeBreadDough({ loaves, loafWeight, ...params }: BreadInputs): [DoughCalculatorResult[], number] {
+    return computeDough(loaves * loafWeight, params)
 }
