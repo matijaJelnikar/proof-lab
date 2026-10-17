@@ -4,6 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: proof_lab
+    pull_policy: build
     restart: always
     environment:
       - DATABASE_PATH=/data/proof-lab.db
